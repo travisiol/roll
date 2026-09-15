@@ -1,0 +1,251 @@
+@import "tailwindcss";
+
+/*
+  ROLL — minimal futurist casino. Three materials and nothing else:
+  black (the table), red (the numbers that pay), chrome (the machine).
+  The greens exist only on the two cells that are off the layout.
+  No halos, no glows outside the hero, no small caps.
+*/
+
+@theme {
+  --color-black: #09090b;
+  --color-felt: #101013;
+  --color-felt-2: #17171b;
+  --color-felt-3: #1f1f24;
+  --color-bone: #f3f2ee;
+  --color-ash: #9d9da6;
+  --color-smoke: #62626b;
+  --color-line: rgba(255, 255, 255, 0.09);
+  --color-line-2: rgba(255, 255, 255, 0.16);
+  --color-red: #e3132b;
+  --color-red-hot: #ff2d44;
+  --color-red-deep: #7d0d1a;
+  --color-red-ink: rgba(227, 19, 43, 0.14);
+  --color-green: #178a4b;
+  --color-green-ink: rgba(23, 138, 75, 0.16);
+  --color-chrome: #d6d6dc;
+
+  --font-display: var(--font-archivo), "Archivo", "Inter", sans-serif;
+  --font-sans: var(--font-geist), "Geist", system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
+
+  --radius-card: 14px;
+  --radius-pill: 999px;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    background: var(--color-black);
+    color: var(--color-bone);
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.5;
+    background: transparent;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: var(--color-red);
+    color: var(--color-bone);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-chrome);
+    outline-offset: 2px;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+}
+
+@layer components {
+  .display {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .wide {
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 125;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+
+  /* chrome: light from above, dark seam in the middle, kick at the bottom */
+  .chrome-text {
+    background: linear-gradient(180deg, #ffffff 0%, #dcdce1 34%, #8f8f98 50%, #f0f0f4 60%, #a5a5ae 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .card {
+    background: var(--color-felt);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 44px;
+    padding: 0 1.25rem;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: transform 120ms ease, background-color 120ms ease, border-color 120ms ease, opacity 120ms ease;
+    cursor: pointer;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+  }
+  .btn-sm {
+    height: 36px;
+    padding: 0 1rem;
+    font-size: 13px;
+  }
+
+  .btn-chrome {
+    color: #0b0b0d;
+    background: linear-gradient(180deg, #ffffff 0%, #e2e2e6 45%, #b9b9c1 50%, #eeeef1 100%);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+  }
+  .btn-chrome:hover:not(:disabled) {
+    background: linear-gradient(180deg, #ffffff 0%, #f0f0f3 45%, #c9c9d0 50%, #ffffff 100%);
+  }
+
+  .btn-red {
+    color: var(--color-bone);
+    background: var(--color-red);
+    border: 1px solid transparent;
+  }
+  .btn-red:hover:not(:disabled) {
+    background: var(--color-red-hot);
+  }
+
+  .btn-line {
+    color: var(--color-bone);
+    background: transparent;
+    border: 1px solid var(--color-line-2);
+  }
+  .btn-line:hover:not(:disabled) {
+    border-color: var(--color-chrome);
+  }
+
+  .field {
+    width: 100%;
+    height: 44px;
+    padding: 0 0.875rem;
+    border-radius: 10px;
+    background: var(--color-black);
+    border: 1px solid var(--color-line-2);
+    color: var(--color-bone);
+    font-family: var(--font-mono);
+    font-size: 15px;
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--color-chrome);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    height: 26px;
+    padding: 0 0.6rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-line-2);
+    font-size: 12px;
+    color: var(--color-ash);
+    white-space: nowrap;
+  }
+
+  .hairline {
+    border-top: 1px solid var(--color-line);
+  }
+
+  /* the layout: one row per cell */
+  .row {
+    display: grid;
+    grid-template-columns: 2.25rem 1fr 6.5rem 4.75rem;
+    align-items: center;
+    gap: 0.75rem;
+    height: 26px;
+    padding: 0 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 90ms ease;
+  }
+  .row:hover {
+    background: var(--color-felt-2);
+  }
+  .row-picked {
+    background: var(--color-red-ink);
+    box-shadow: inset 0 0 0 1px var(--color-red);
+  }
+  .row-picked:hover {
+    background: rgba(227, 19, 43, 0.2);
+  }
+  .row-green {
+    background: var(--color-green-ink);
+  }
+  .row-green:hover {
+    background: rgba(23, 138, 75, 0.24);
+  }
+  .row-green.row-picked {
+    box-shadow: inset 0 0 0 1px var(--color-green);
+  }
+  .row-won {
+    box-shadow: inset 0 0 0 1px var(--color-chrome);
+    background: var(--color-felt-3);
+  }
+  .row-live {
+    box-shadow: inset 2px 0 0 var(--color-chrome);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
